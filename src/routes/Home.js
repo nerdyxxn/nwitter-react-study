@@ -8,6 +8,7 @@ import {
   orderBy,
   onSnapshot,
 } from "firebase/firestore";
+import Nweet from "components/Nweet";
 
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
@@ -34,7 +35,6 @@ const Home = ({ userObj }) => {
         createdAt: Date.now(),
         creatorId: userObj.uid,
       });
-      console.log(`Submit with Nweet: ${nweet}`);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -62,9 +62,11 @@ const Home = ({ userObj }) => {
       </form>
       <div>
         {nweets.map((nweet) => (
-          <div key={nweet.id}>
-            <h4>{nweet.text}</h4>
-          </div>
+          <Nweet
+            key={nweet.id}
+            nweetObj={nweet}
+            isOwner={nweet.creatorId === userObj.uid}
+          />
         ))}
       </div>
     </div>
