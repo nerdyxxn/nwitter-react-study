@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { authService } from "fbase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AppRouter from "components/Router";
 
@@ -16,6 +15,7 @@ function App() {
         setUserObj(user);
       } else {
         setIsLoggedIn(false);
+        setUserObj(null);
       }
       setInit(true);
     });
@@ -28,7 +28,7 @@ function App() {
       ) : (
         "initializing..."
       )}
-      <footer>&copy; {new Date().getFullYear()} Nwitter</footer>
+      {/* <footer>&copy; {new Date().getFullYear()} Nwitter</footer> */}
     </>
   );
 }

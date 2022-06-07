@@ -39,7 +39,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
 
   return (
     <div>
-      {/* editing이 true이면, 즉 수정중이면 수정form 보여주고 아니라면 기존의 트윗 리스트 출력*/}
+      {/* editing이 true이면, 즉 수정중이면 수정폼 보여주고 아니라면 기존의 트윗 리스트 출력*/}
       {editing ? (
         <>
           <form onSubmit={onSubmit}>
