@@ -4,7 +4,6 @@ import { dbService, storageService } from "fbase";
 import {
   collection,
   addDoc,
-  getDocs,
   query,
   orderBy,
   onSnapshot,
@@ -38,7 +37,7 @@ const Home = ({ userObj }) => {
     // 업로드한 이미지가 없다면 비어있는 string 기본값으로 설정
     let attachmentUrl = "";
 
-    if (attachment != "") {
+    if (attachment !== "") {
       // 파일 경로 참조 만들기
       const fileRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
       // storage 참조 경로로 파일 업로드

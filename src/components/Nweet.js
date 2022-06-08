@@ -1,17 +1,29 @@
 import React, { useState } from "react";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { dbService } from "fbase";
+import { ref, deleteObject } from "firebase/storage";
+import { dbService, storageService } from "fbase";
 
 const Nweet = ({ nweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
   const [newNweet, setNewNweet] = useState(nweetObj.text);
-  // DB에서 내가 선택한 트윗을 찾아서 핸들링 하기 위한 리터럴
+  // DB에서 내가 선택한 트윗을 찾기 위한 ref
   const NweetTextRef = doc(dbService, "nweets", `${nweetObj.id}`);
+  // 삭제하려는 이미지 파일 가리키는 ref
+  const attachmentRef = ref(storageService, nweetObj.attachmentUrl);
 
   const onDeleteClick = async () => {
     const ok = window.confirm("Are you sure you want to delete this nweet?");
     if (ok) {
-      await deleteDoc(NweetTextRef);
+      try {
+        // 선택한 트윗 firestore에서 삭제
+        await deleteDoc(NweetTextRef);
+        // 선택한 트윗에 이미지 파일이 있는 경우 storage에서 이미지 파일 삭제
+        if (nweetObj.attachmentUrl !== "") {
+          await deleteObject(attachmentRef);
+        }
+      } catch (error) {
+        window.alert("Delete Failed!");
+      }
     }
   };
 
@@ -58,7 +70,12 @@ const Nweet = ({ nweetObj, isOwner }) => {
         <>
           <h4>{nweetObj.text}</h4>
           {nweetObj.attachmentUrl && (
-            <img src={nweetObj.attachmentUrl} width="50px" height="50px" />
+            <img
+              src={nweetObj.attachmentUrl}
+              alt="img"
+              width="50px"
+              height="50px"
+            />
           )}
           {isOwner && (
             <>
