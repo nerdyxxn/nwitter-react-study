@@ -1,14 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = ({ userObj }) => (
   <nav>
-    <ul>
+    <ul className="nav__container">
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/" className="link__toHome">
+          <FontAwesomeIcon icon={faTwitter} color={"#04AAFF"} size="2x" />
+        </Link>
       </li>
       <li>
-        <Link to="/profile">{userObj.displayName}님의 Profile</Link>
+        <Link to="/profile" className="line__toProfile">
+          <FontAwesomeIcon icon={faUser} color={"04AAFF"} size="2x" />
+          <span className="nav__userName">
+            {userObj.displayName}님의 Profile
+          </span>
+        </Link>
       </li>
     </ul>
   </nav>
