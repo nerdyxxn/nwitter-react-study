@@ -4,7 +4,7 @@ import { dbService, authService } from "fbase";
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 
-const Profile = ({ userObj }) => {
+const Profile = ({ refreshUser, userObj }) => {
   const navigate = useNavigate();
 
   // 수정한 사용자 이름을 담을 state 생성
@@ -49,6 +49,7 @@ const Profile = ({ userObj }) => {
     e.preventDefault();
     if (userObj.displayName !== newDisplayName) {
       await updateProfile(userObj, { displayName: newDisplayName });
+      refreshUser();
     }
   };
 
