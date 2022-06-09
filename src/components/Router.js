@@ -9,22 +9,26 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <HashRouter>
       {isLoggedIn && <Navigation userObj={userObj} />}
-      <Routes>
-        {isLoggedIn ? (
-          <>
-            <Route exact path="/" element={<Home userObj={userObj} />} />
-            <Route
-              exact
-              path="/profile"
-              element={<Profile userObj={userObj} refreshUser={refreshUser} />}
-            />
-          </>
-        ) : (
-          <>
-            <Route exact path="/" element={<Auth />} />
-          </>
-        )}
-      </Routes>
+      <div className="router__container">
+        <Routes>
+          {isLoggedIn ? (
+            <>
+              <Route exact path="/" element={<Home userObj={userObj} />} />
+              <Route
+                exact
+                path="/profile"
+                element={
+                  <Profile userObj={userObj} refreshUser={refreshUser} />
+                }
+              />
+            </>
+          ) : (
+            <>
+              <Route exact path="/" element={<Auth />} />
+            </>
+          )}
+        </Routes>
+      </div>
     </HashRouter>
   );
 };

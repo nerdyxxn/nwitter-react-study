@@ -14,7 +14,7 @@ const Navigation = ({ userObj }) => (
       </li>
       <li>
         <Link to="/profile" className="line__toProfile">
-          <FontAwesomeIcon icon={faUser} color={"04AAFF"} size="2x" />
+          <FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
           <span className="nav__userName">
             {userObj.displayName}님의 Profile
           </span>
